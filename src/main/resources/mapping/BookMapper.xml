@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.core.newbie.mapper.BookMapper">
+    <resultMap id="BookResultMap" type="com.core.newbie.model.Book">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="author" property="author" jdbcType="VARCHAR"/>
+        <result column="publishing_house" property="publishing_house" jdbcType="VARCHAR"/>
+        <result column="the_year_of_publishing" property="the_year_of_publishing" jdbcType="INTEGER"/>
+        <result column="cover" property="cover" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, author, publishing_house, the_year_of_publishing, cover, description
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BookResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from books
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="findAll" resultMap="BookResultMap">
+	    select
+	    <include refid="Base_Column_List"/>
+	    from books
+    </select>
+    
+    <select id="search" resultMap="BookResultMap" parameterType="map">
+	    select
+	    <include refid="Base_Column_List"/>
+	    from books
+	    where author = 'Роберт Сальваторе'
+	    <if test="name != null">
+        <bind name="pattern" value="'%' + name + '%'" />
+           and name LIKE #{name,jdbcType=VARCHAR}
+        </if>
+	    <if test="publishing_house != null">
+        <bind name="pattern" value="'%' + publishing_house + '%'" />
+           and publishing_house LIKE #{publishing_house,jdbcType=VARCHAR}
+        </if>
+	    <if test="the_year_of_publishing != null">
+           and the_year_of_publishing = #{the_year_of_publishing,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from books
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.core.newbie.model.Book">
+        update books
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="author != null">
+                author = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="publishing_house != null">
+                publishing_house = #{publishing_house,jdbcType=VARCHAR},
+            </if>
+            <if test="the_year_of_publishing != null">
+                the_year_of_publishing = #{the_year_of_publishing,jdbcType=INTEGER},
+            </if>
+            <if test="cover != null">
+                cover = #{cover,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{userName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    
+    <insert id="insert" parameterType="com.core.newbie.model.Book">
+        insert into books (<include refid="Base_Column_List"/>)
+        values (#{id,jdbcType=INTEGER},  #{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{publishing_house,jdbcType=VARCHAR}, #{the_year_of_publishing,jdbcType=INTEGER}, #{cover,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.core.newbie.model.Book">
+        update books
+        set name = #{name,jdbcType=VARCHAR},
+        author = #{author,jdbcType=VARCHAR},
+        publishing_house = #{publishing_house,jdbcType=VARCHAR},
+        the_year_of_publishing = #{the_year_of_publishing,jdbcType=INTEGER},
+        cover = #{cover,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
