@@ -72,22 +72,37 @@
 			var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	
 			_this.state = { books: [] };
+			_this.onDelete = _this.onDelete.bind(_this);
 			return _this;
 		}
 	
 		_createClass(App, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
+			key: 'onDelete',
+			value: function onDelete(book) {
 				var _this2 = this;
 	
+				client({ method: 'POST', path: 'http://localhost:8080/main/book/' + book.id + '/delete' }).done(function (response) {
+					console.log('onDelete: ', book.id);
+					client({ method: 'GET', path: 'api' }).done(function (response) {
+						console.info("onDelete response: %o", response);
+						_this2.setState({ books: response.entity });
+					});
+				});
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var _this3 = this;
+	
 				client({ method: 'GET', path: 'api' }).done(function (response) {
-					_this2.setState({ books: response.entity });
+					console.info("componentDidMount response: %o", response);
+					_this3.setState({ books: response.entity });
 				});
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				return React.createElement(BookList, { books: this.state.books });
+				return React.createElement(BookList, { books: this.state.books, onDelete: this.onDelete });
 			}
 		}]);
 	
@@ -101,21 +116,23 @@
 	var BookList = function (_React$Component2) {
 		_inherits(BookList, _React$Component2);
 	
-		function BookList() {
+		function BookList(props) {
 			_classCallCheck(this, BookList);
 	
-			return _possibleConstructorReturn(this, (BookList.__proto__ || Object.getPrototypeOf(BookList)).apply(this, arguments));
+			return _possibleConstructorReturn(this, (BookList.__proto__ || Object.getPrototypeOf(BookList)).call(this, props));
 		}
 	
 		_createClass(BookList, [{
 			key: 'render',
 			value: function render() {
+				var _this5 = this;
+	
 				var books = this.props.books.map(function (book) {
-					return React.createElement(Book, { key: book.id, book: book });
+					return React.createElement(Book, { key: book.id, book: book, onDelete: _this5.props.onDelete });
 				});
 				return React.createElement(
 					'table',
-					null,
+					{ id: 'example', className: 'display nowrap', style: { width: '100%' } },
 					React.createElement(
 						'tbody',
 						null,
@@ -126,6 +143,21 @@
 								'th',
 								null,
 								'\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+							),
+							React.createElement(
+								'th',
+								null,
+								'\u0410\u0432\u0442\u043E\u0440'
+							),
+							React.createElement(
+								'th',
+								null,
+								'\u0418\u0437\u0434\u0430\u0442\u0435\u043B\u044C\u0441\u0442\u0432\u043E'
+							),
+							React.createElement(
+								'th',
+								null,
+								'\u0413\u043E\u0434 \u0438\u0437\u0434\u0430\u043D\u0438\u044F'
 							)
 						),
 						books
@@ -144,22 +176,61 @@
 	var Book = function (_React$Component3) {
 		_inherits(Book, _React$Component3);
 	
-		function Book() {
+		function Book(props) {
 			_classCallCheck(this, Book);
 	
-			return _possibleConstructorReturn(this, (Book.__proto__ || Object.getPrototypeOf(Book)).apply(this, arguments));
+			var _this6 = _possibleConstructorReturn(this, (Book.__proto__ || Object.getPrototypeOf(Book)).call(this, props));
+	
+			_this6.handleDelete = _this6.handleDelete.bind(_this6);
+			return _this6;
 		}
 	
 		_createClass(Book, [{
+			key: 'handleDelete',
+			value: function handleDelete() {
+				this.props.onDelete(this.props.book);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var _this7 = this;
+	
+				var _props$book = this.props.book,
+				    id = _props$book.id,
+				    name = _props$book.name,
+				    author = _props$book.author,
+				    publishingHouse = _props$book.publishingHouse,
+				    theYearOfPublishing = _props$book.theYearOfPublishing;
+	
+	
 				return React.createElement(
 					'tr',
 					null,
 					React.createElement(
 						'td',
 						null,
-						this.props.book.name
+						React.createElement(
+							'a',
+							{ href: "http://localhost:8080/main/book/book?id=" + id },
+							name
+						)
+					),
+					React.createElement(
+						'td',
+						{ onClick: function onClick() {
+								_this7.handleDelete();
+							} },
+						author
+					),
+					React.createElement(
+						'td',
+						null,
+						publishingHouse
+					),
+					React.createElement(
+						'td',
+						null,
+						theYearOfPublishing
 					)
 				);
 			}

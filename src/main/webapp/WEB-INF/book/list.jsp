@@ -72,7 +72,9 @@
     
     	<jsp:include page="../fragments/header.jsp" />
     	<h2 style="text-align: center;">Книги серии "Темный эльф"</h2>
+    	<table id="example" class="display nowrap" style="width:100%">
     	<div id="react"></div>
+    	</table>
     	Привет, 
     	<c:choose>
 		    <c:when test="${not empty user.login}">
@@ -83,11 +85,11 @@
 		    </c:otherwise>
 		</c:choose><br>
     	<c:if test="${user.isAdmin}">
-    	<a href="http://localhost:8080/main/book/add" class="btn btn-primary" style="text-align: right;">
+    	<a href="http://localhost:8080/main/book/add" class="btn btn-primary float-right">
 	        Добавить запись
 	    </a>
 	    </c:if>
-    	<a href="http://localhost:8080/main/book/search" class="btn btn-primary" style="text-align: right;">
+    	<a href="http://localhost:8080/main/book/search" class="btn btn-primary float-right">
 	        Расширенный поиск
 	    </a>
 	    <br><br>
@@ -133,10 +135,24 @@
     <script>
 	    $(document).on("click", ".open-DeleteBookDialog", function () {
 	        var myBookId = $(this).data('id');
-	        document.getElementById('delete').action = 'http://localhost:8080/main/book/' + myBookId + '/delete';
-	        // As pointed out in comments, 
-	        // it is superfluous to have to manually call the modal.
-	        // $('#addBookDialog').modal('show');
+	        var action = 'http://localhost:8080/main/book/' + myBookId + '/delete';
+			
+	        document.getElementById('delete').addEventListener("submit", function(e) {
+				e.preventDefault();
+				console.log("action:", action);
+				fetch(action, {
+					method: 'post'
+				})
+				.then(function (response) {
+					console.log("fetch response:", response);
+				})
+				.then(function (result) {
+					console.log("fetch result:", result);
+				})
+				.catch (function (error) {
+					console.log('Request failed:', error);
+				});
+			});
 	    });
     </script>
     <a href="http://localhost:8080/main/user/logout" class="btn btn-primary" style="text-align: right;">

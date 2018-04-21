@@ -34,7 +34,8 @@ public class UserActionTest {
         user.setIsAdmin(true);
         user.setPassword("001");
         user.setLogin("admin");
-//        userService.save(user);
+        if (userService.getUserById(user.getId()) == null)
+            userService.save(user);
         logger.info(JSON.toJSON(user));
     }
 
@@ -51,7 +52,8 @@ public class UserActionTest {
         user.setIsAdmin(false);
         user.setPassword("002");
         user.setLogin("user");
-//        userService.save(user);
+        if (userService.getUserById(user.getId()) == null)
+            userService.save(user);
         logger.info(JSON.toJSON(user));
     }
 }

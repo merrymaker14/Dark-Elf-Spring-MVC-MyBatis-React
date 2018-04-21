@@ -1,6 +1,7 @@
 package com.core.newbie.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.core.newbie.model.Book;
 import com.core.newbie.model.User;
 import com.core.newbie.service.BookService;
@@ -26,11 +27,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 //import com.core.newbie.validation.BookFormValidator;
@@ -88,14 +91,13 @@ public class BookController {
     }
 	
 	@RequestMapping(value = "/api", method = RequestMethod.GET)
-    public @ResponseBody String api(HttpServletRequest request, HttpServletResponse response) {
+    public @ResponseBody JSONArray api(HttpServletResponse response) throws UnsupportedEncodingException {
 		response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=UTF-8");
 		
 		List<Book> books2;
 		books2 = bookService.getAll();
-		String books = new Gson().toJson(books2);		
+		JSONArray books = (JSONArray) JSON.toJSON(books2);		
 		logger.info(books);
 		return books;
 	}
@@ -179,16 +181,16 @@ public class BookController {
  	
     // delete book
  	@RequestMapping(value = "{id}/delete", method = RequestMethod.POST)
- 	public String deleteBook(@PathVariable("id") int id, 
+ 	public @ResponseBody void deleteBook(@PathVariable("id") int id, 
  		final RedirectAttributes redirectAttributes) {
 
  		logger.info(id);
 
  		bookService.delete(id);
  		
- 		redirectAttributes.addFlashAttribute("css", "success");
- 		redirectAttributes.addFlashAttribute("msg", "Book is deleted!");
- 		
- 		return "redirect:/book/books";
+// 		redirectAttributes.addFlashAttribute("css", "success");
+// 		redirectAttributes.addFlashAttribute("msg", "Book is deleted!");
+// 		
+// 		return "redirect:/book/books";
  	}
 }

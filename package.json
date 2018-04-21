@@ -1,24 +1,19 @@
 {
-  "name": "spring-data-rest-and-reactjs",
+  "name": "Dark-Elf-Spring-MVC-MyBatis-React",
   "version": "0.1.0",
-  "description": "Demo of ReactJS + Spring Data REST",
+  "description": "Spring MVC MyBatis React Project",
   "repository": {
     "type": "git",
-    "url": "git@github.com:spring-guides/tut-react-and-spring-data-rest.git"
+    "url": "git@github.com:merrymaker14/Dark-Elf-Spring-MVC-MyBatis-React.git"
   },
   "keywords": [
     "rest",
-    "hateoas",
     "spring",
-    "data",
+    "mybatis",
     "react"
   ],
-  "author": "Greg L. Turnquist",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/spring-guides/tut-react-and-spring-data-rest/issues"
-  },
-  "homepage": "https://github.com/spring-guides/tut-react-and-spring-data-rest",
+  "author": "Tim Musharapov",
+  "homepage": "https://github.com/merrymaker14/Dark-Elf-Spring-MVC-MyBatis-React",
   "dependencies": {
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
@@ -31,6 +26,7 @@
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.7",
+	"babel-plugin-transform-class-properties": "6.11.5",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0"
