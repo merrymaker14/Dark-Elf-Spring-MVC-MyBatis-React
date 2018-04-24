@@ -6,6 +6,9 @@
 
 <!DOCTYPE html>
 <html>
+	<title>Добавление записи</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</html>
 
 <jsp:include page="../fragments/header.jsp" />
 
@@ -105,7 +108,11 @@
 	</form:form>
 
 </div>
-
+<br>
+<a href="http://localhost:8080/main/book/books" class="btn btn-primary">
+    Назад
+</a>
+    
 <jsp:include page="../fragments/footer.jsp" />
 
 </body>

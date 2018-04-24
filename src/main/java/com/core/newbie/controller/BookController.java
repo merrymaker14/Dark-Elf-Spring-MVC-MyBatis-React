@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
@@ -169,7 +170,11 @@ public class BookController {
     
     // show update form
  	@RequestMapping(value = "{id}/update", method = RequestMethod.GET)
- 	public String showUpdateBookForm(@PathVariable("id") int id, Model model) {
+ 	public String showUpdateBookForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") int id, Model model) throws IOException {
+ 		HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null)
+        	response.sendError(403, "Forbidden");
+ 		
  		logger.info(id);
 
  		Book book = bookService.getBookById(id);
