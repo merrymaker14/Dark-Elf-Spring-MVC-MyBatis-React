@@ -15,7 +15,7 @@
     <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
     <script>
 	    $(document).ready(function() {
-	        $('#example').DataTable( {
+	    	var myTable = $('#example').DataTable( {
 	            responsive: {
 	                details: {
 	                    type: 'column'
@@ -72,9 +72,7 @@
     
     	<jsp:include page="../fragments/header.jsp" />
     	<h2 style="text-align: center;">Книги серии "Темный эльф"</h2>
-    	<table id="example" class="display nowrap" style="width:100%">
-    	<div id="react"></div>
-    	</table>
+    	<!--<div id="react"></div>-->
     	Привет, 
     	<c:choose>
 		    <c:when test="${not empty user.login}">
@@ -94,90 +92,67 @@
 	    </a>
 	    <br><br>
         <table id="example" class="display nowrap" style="width:100%">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Название</th>
-                <th>Автор</th>
-                <th>Издательство</th>
-                <th>Год издания</th>
-                <c:if test="${user.isAdmin}">
-                <th></th>
-                <th></th>
-                </c:if>
-	        </tr>
-        </thead>
-        <tbody>
-			<c:forEach var="book" items="${books}">
-				<tr>
-					<td></td>
-					<td><a href="http://localhost:8080/main/book/book?id=${book.id}">${book.name}</a></td>
-					<td>${book.author}</td>
-					<td>${book.publishingHouse}</td>
-					<td>${book.theYearOfPublishing}</td>
-					<c:if test="${user.isAdmin}">
-					<td>
-						<a href="http://localhost:8080/main/book/${book.id}/update" class="btn btn-primary">
-						  Редактировать
-						</a>
-					</td>
-					<td>
-						<!-- Button trigger modal -->
-						<button type="button" data-id="${book.id}" class="open-DeleteBookDialog btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-						  Удалить
-						</button>
-					</td>
-					</c:if>
-				</tr>
-			</c:forEach>
-        </tbody>
-    </table>
-    <script>
-	    $(document).on("click", ".open-DeleteBookDialog", function () {
-	        var myBookId = $(this).data('id');
-	        var action = 'http://localhost:8080/main/book/' + myBookId + '/delete';
-			
-	        document.getElementById('delete').addEventListener("submit", function(e) {
-				e.preventDefault();
-				console.log("action:", action);
-				fetch(action, {
-					method: 'post'
-				})
-				.then(function (response) {
-					console.log("fetch response:", response);
-				})
-				.then(function (result) {
-					console.log("fetch result:", result);
-				})
-				.catch (function (error) {
-					console.log('Request failed:', error);
-				});
-			});
-	    });
-    </script>
-    <a href="http://localhost:8080/main/user/logout" class="btn btn-primary" style="text-align: right;">
-	    Выйти
-	</a>
-   
-    <!-- Modal -->
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLongTitle">Вы действительно хотите удалить запись?</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-	        <form method="post" id="delete" action=""> 
-	          <input type="submit" class="btn btn-primary" value="Удалить">
-	        </form>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	<jsp:include page="../fragments/footer.jsp" />
+	        <thead>
+	            <tr>
+	                <th></th>
+	                <th>Название</th>
+	                <th>Автор</th>
+	                <th>Издательство</th>
+	                <th>Год издания</th>
+	                <c:if test="${user.isAdmin}">
+	                <th></th>
+	                <th></th>
+	                </c:if>
+		        </tr>
+	        </thead>
+	        <tbody>
+				<c:forEach var="book" items="${books}">
+					<tr>
+						<td></td>
+						<td><a href="http://localhost:8080/main/book/book?id=${book.id}">${book.name}</a></td>
+						<td>${book.author}</td>
+						<td>${book.publishingHouse}</td>
+						<td>${book.theYearOfPublishing}</td>
+						<c:if test="${user.isAdmin}">
+						<td>
+							<a href="http://localhost:8080/main/book/${book.id}/update" class="btn btn-primary">
+							  Редактировать
+							</a>
+						</td>
+						<td>
+							<!-- Button trigger modal -->
+							<button type="button" data-id="${book.id}" class="open-DeleteBookDialog btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+							  Удалить
+							</button>
+						</td>
+						</c:if>
+					</tr>
+				</c:forEach>
+	        </tbody>
+	    </table>
+	    <a href="http://localhost:8080/main/user/logout" class="btn btn-primary" style="text-align: right;">
+		    Выйти
+		</a>
+	   
+	    <!-- Modal -->
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">Вы действительно хотите удалить запись?</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+		        <form method="post" id="delete" action=""> 
+		          <input type="submit" id="deleteBook" class="btn btn-primary" value="Удалить">
+		        </form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<jsp:include page="../fragments/footer.jsp" />
     </body>
 </html>

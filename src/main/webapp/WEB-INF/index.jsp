@@ -14,13 +14,10 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet/less" href="styles.less">
+	<!--<link rel="stylesheet/less" href="styles.less">
 	<script>less = { env: 'development' };</script>
 	<script src="less.js"></script>
-	<script>less.watch()</script>
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+	<script>less.watch()</script>-->
     <style type="text/css">
 	    .bs-example{
 	    	margin: 20px;
@@ -28,7 +25,6 @@
 	</style>
 </head>
     <body>
-
 		<div style="text-align: center;"><img src='<spring:url value="/resources/th1.jpeg"/>'></div><br>
     
         <div class="bs-example">
@@ -44,29 +40,5 @@
 		        <button type="submit" class="btn btn-primary">Войти</button>
 		    </form>
 		</div>
-        <div id="root"></div>
-	    <script type="text/babel">
-            class App extends React.Component {
-			  render() {
-				return (
-				  <div className="App">
-					<header className="App-header">
-					  <img src={logo} className="App-logo" alt="logo" />
-					  <h1 className="App-title">Welcome to React</h1>
-					</header>
-					<p className="App-intro">
-					  To get started, edit <code>src/App.js</code> and save to reload.
-					</p>
-				  </div>
-				);
-			  }
-			}
-		
-            ReactDOM.render(
-                <App />,
-                document.getElementById('root')
-            );
-
-        </script>
     </body>
 </html>

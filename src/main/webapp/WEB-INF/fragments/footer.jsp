@@ -8,3 +8,4 @@
 </div>
 
 <script src='<spring:url value="/resources/bundle.js"/>'></script>
+<script src='<spring:url value="/resources/script.js"/>'></script>
