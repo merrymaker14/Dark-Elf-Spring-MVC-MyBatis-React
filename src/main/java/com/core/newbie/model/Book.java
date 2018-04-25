@@ -24,7 +24,7 @@ public class Book {
         return id;
     }
 
-    public void setId(final Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -32,31 +32,31 @@ public class Book {
         return name;
     }
 
-    public void setName(final String name) {
-        this.name = name == null ? null : name.trim();
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(final String author) {
-        this.author = author == null ? null : author.trim();
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getPublishingHouse() {
         return publishing_house;
     }
 
-    public void setPublishingHouse(final String publishing_house) {
-        this.publishing_house = publishing_house == null ? null : publishing_house.trim();
+    public void setPublishingHouse(String publishing_house) {
+        this.publishing_house = publishing_house;
     }
 
     public Integer getTheYearOfPublishing() {
         return the_year_of_publishing;
     }
 
-    public void setTheYearOfPublishing(final Integer the_year_of_publishing) {
+    public void setTheYearOfPublishing(Integer the_year_of_publishing) {
         this.the_year_of_publishing = the_year_of_publishing;
     }
     
@@ -64,15 +64,15 @@ public class Book {
         return cover;
     }
 
-    public void setCover(final String cover) {
-        this.cover = cover == null ? null : cover.trim();
+    public void setCover(String cover) {
+        this.cover = cover;
     }
     
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(final String description) {
-        this.description = description == null ? null : description.trim();
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

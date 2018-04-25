@@ -1,5 +1,9 @@
 package com.core.newbie.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
 
     private Integer id;
@@ -14,7 +18,7 @@ public class User {
         return id;
     }
 
-    public void setId(final Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -22,23 +26,23 @@ public class User {
         return login;
     }
 
-    public void setLogin(final String login) {
-        this.login = login == null ? null : login.trim();
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(final String password) {
-        this.password = password == null ? null : password.trim();
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(final Boolean isAdmin) {
+    public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 }

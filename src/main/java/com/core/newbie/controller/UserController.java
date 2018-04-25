@@ -66,9 +66,7 @@ public class UserController {
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginUser(final HttpServletRequest request) {
-//		bookFormValidator.validate(book, result);	
-        
-		Map<String, Object> parms = new HashMap<String, Object>();
+    	Map<String, Object> parms = new HashMap<String, Object>();
     	final String login = request.getParameter("login");    	
     	String password = request.getParameter("password");
     	final List<User> passwords = userService.passwords();
@@ -88,9 +86,7 @@ public class UserController {
     }
     
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logoutUser(final HttpServletRequest request) {
-//		bookFormValidator.validate(book, result);	
-        
+	public String logoutUser(final HttpServletRequest request) {	  
     	HttpSession session = request.getSession();
 		session.removeAttribute("user");
 		

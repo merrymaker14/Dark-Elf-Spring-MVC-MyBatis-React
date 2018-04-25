@@ -12,16 +12,14 @@ $(document).on("click", ".open-DeleteBookDialog", function () {
 			method: 'post'
 		})
 		.then(function (response) {
-			console.log("fetch response:", response);
-			console.log("tr:", tr);
 			tr.remove();
 			$('#exampleModalCenter').modal('hide');
 		})
 		.then(function (result) {
-			console.log("fetch result:", result);
+			
 		})
 		.catch (function (error) {
-			console.log('Request failed:', error);
+			
 		});
 	});
 });

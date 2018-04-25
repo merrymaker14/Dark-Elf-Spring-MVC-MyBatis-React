@@ -54,7 +54,7 @@ public class BookController {
         final int bookId = Integer.parseInt(request.getParameter("id"));
         final Book book = bookService.getBookById(bookId);
         model.addAttribute("book", book);
-        logger.debug("running in BookController.java -> showBook()");
+        logger.debug("Запуск в BookController.java -> showBook()");
         logger.info(JSON.toJSON(request.getRequestURI()));
         logger.info(JSON.toJSON(book));
         return "/book/showBook.jsp";
@@ -155,7 +155,7 @@ public class BookController {
     }
     
     // show search form
-    @RequestMapping(value = "search", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search() {
         logger.info("Загрузка search");
         return "book/search.jsp";
@@ -169,14 +169,12 @@ public class BookController {
     }
     
     // show update form
- 	@RequestMapping(value = "{id}/update", method = RequestMethod.GET)
+ 	@RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
  	public String showUpdateBookForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") int id, Model model) throws IOException {
  		HttpSession session = request.getSession();
  		User user = (User) session.getAttribute("user");
  		if (user == null || user.getIsAdmin() != true)
         	response.sendError(403, "Forbidden");
- 		
- 		logger.info(id);
 
  		Book book = bookService.getBookById(id);
  		model.addAttribute("updateForm", book);
@@ -186,11 +184,12 @@ public class BookController {
  	}
  	
     // delete book
- 	@RequestMapping(value = "{id}/delete", method = RequestMethod.POST)
+ 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
  	public @ResponseBody void deleteBook(@PathVariable("id") int id, 
  		final RedirectAttributes redirectAttributes) {
 
- 		logger.info(id);
+        logger.debug("Запуск в BookController.java -> deleteBook()");
+        logger.info(id);
 
  		bookService.delete(id);
  		
