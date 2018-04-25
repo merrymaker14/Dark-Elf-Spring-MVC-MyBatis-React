@@ -172,7 +172,8 @@ public class BookController {
  	@RequestMapping(value = "{id}/update", method = RequestMethod.GET)
  	public String showUpdateBookForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") int id, Model model) throws IOException {
  		HttpSession session = request.getSession();
-        if (session.getAttribute("user") == null)
+ 		User user = (User) session.getAttribute("user");
+ 		if (user == null || user.getIsAdmin() != true)
         	response.sendError(403, "Forbidden");
  		
  		logger.info(id);
