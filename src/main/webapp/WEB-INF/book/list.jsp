@@ -131,7 +131,7 @@
 				</c:forEach>
 	        </tbody>
 	    </table>
-	    <a href="http://localhost:8080/main/user/logout" class="btn btn-primary" style="text-align: right;">
+	    <a href='<spring:url value="/user/logout"/>' class='btn btn-primary' style='text-align: right;'>
 		    Выйти
 		</a>
 	   

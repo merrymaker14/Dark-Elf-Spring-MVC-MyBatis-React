@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,7 @@
 	Обложка: <img src="${book.cover}"><br>
 	Описание: ${book.description}<br>
 		
-    <a href="http://localhost:8080/main/book/books" class="btn btn-primary">
+    <a href='<spring:url value="/book/books"/>' class='btn btn-primary'>
         Назад
     </a>
 

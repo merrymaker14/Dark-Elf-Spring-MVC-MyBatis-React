@@ -102,7 +102,7 @@
 
 </div>
 <br>
-<a href="http://localhost:8080/main/book/books" class="btn btn-primary">
+<a href='<spring:url value="/book/books"/>' class='btn btn-primary'>
     Назад
 </a>
 

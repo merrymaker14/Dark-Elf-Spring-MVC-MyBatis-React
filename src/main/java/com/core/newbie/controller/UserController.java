@@ -42,27 +42,6 @@ public class UserController {
     
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
-
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String showUser(final HttpServletRequest request, final Model model) {
-        final int userId = Integer.parseInt(request.getParameter("id"));
-        final User user = userService.getUserById(userId);
-        model.addAttribute("user", user);
-        logger.debug("running in UserController.java -> showUser()");
-        logger.info(JSON.toJSON(request.getRequestURI()));
-        logger.info(JSON.toJSON(user));
-        return "/user/showUser.jsp";
-    }
-    
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users(final HttpServletRequest request, final Model model) {
-        final List<User> users = userService.getAll();
-        model.addAttribute("users", users);
-        logger.debug("running in UserController.java -> users()");
-        logger.info(JSON.toJSON(request.getRequestURI()));
-        logger.info(JSON.toJSON(users));
-        return "/user/list.jsp";
-    }
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginUser(final HttpServletRequest request) {
